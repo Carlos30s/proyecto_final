@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('docsempleados', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('ruta_archivo');
+            $table->foreignId('empleado_id')->constrained()->onDelete('cascade');
         });
     }
 
