@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('fecha_de_contratacion');
             $table->decimal('salario',10,2);
-            $table-foreignId('departamento_id')->constrained()->onDelete('cascade');
+            $table->foreignId('departamento_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
         });
     }

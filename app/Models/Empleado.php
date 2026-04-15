@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Empleado extends Model
@@ -10,7 +10,7 @@ class Empleado extends Model
     protected $fillable = [
         'numero_empleado',
         'nombre',
-        'aprellido',
+        'apellido',
         'telefono',
         'direccion',
         'curp',
