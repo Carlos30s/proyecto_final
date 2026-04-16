@@ -21,7 +21,7 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        //
+        return view('empleados.create');
     }
 
     /**
@@ -29,10 +29,13 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
-        Empleado::create($request->all());
-        return redirect()->route('empleados.index');
+        try {
+            Empleado::create($request->all());
+            return redirect()->route('empleados.index');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
     }
-
     /**
      * Display the specified resource.
      */

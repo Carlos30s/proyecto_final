@@ -16,7 +16,7 @@ class Empleado extends Model
         'curp',
         'rfc',
         'email',
-        'fecha_ingreso',
+        'fecha_de_contratacion',
         'salario',
         'departamento_id'
     ];
