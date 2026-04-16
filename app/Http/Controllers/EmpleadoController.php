@@ -12,7 +12,7 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        $empleados = Empleado::with('departamento')->get();
+        $empleados = Empleado::all();
         return view('empleados.index', compact('empleados'));
     }
 
@@ -39,17 +39,16 @@ class EmpleadoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Empleado $empleado)
     {
-        //
+        return view('empleados.show', compact('empleado'));
     }
-
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Empleado $empleado)
     {
-        //
+        return view('empleados.edit', compact('empleado'));
     }
 
     /**
@@ -57,8 +56,15 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+        'numero_empleado' => 'required',
+        'nombre' => 'required',
+        'apellido' => 'required',
+        'email' => 'required|email',
+        'salario' => 'required|numeric',
+        ]);
         $empleado->update($request->all());
-        return redirect()->route('empleados.index');
+        return redirect()->route('empleados.index')->with('success', 'Empleado actualizado correctamente');
     }
 
     /**
@@ -67,6 +73,6 @@ class EmpleadoController extends Controller
     public function destroy(string $id)
     {
         $empleado->delete();
-        return redirect()->route('empleados.index');
+        return redirect()->route('empleados.index')->with('success', 'Empleado eliminado correctamente');
     }
 }
