@@ -6,6 +6,15 @@
 
 <div class="card shadow">
     <div class="card-body">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            </div>
+        @endif
 
         <form action="{{ route('empleados.store') }}" method="POST">
             @csrf
@@ -13,13 +22,13 @@
             <div class="row">
 
                 <div class="col-md-6 mb-3">
-                    <label>Nombre</label>
-                    <input type="text" name="nombre" class="form-control">
-                </div>
-                
-                <div class="col-md-6 mb-3">
                     <label>Número de empleado</label>
                     <input type="text" name="numero_empleado" class="form-control">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" class="form-control">
                 </div>
 
                 <div class="col-md-6 mb-3">
@@ -60,6 +69,19 @@
                 <div class="col-md-12 mb-3">
                     <label>Dirección</label>
                     <input type="text" name="direccion" class="form-control">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Departamento</label>
+                    <select name="departamento_id" class="form-control">
+                        <option value="">Seleccionar...</option>
+
+                        @foreach($departamentos as $dep)
+                            <option value="{{ $dep->id }}">
+                                {{ $dep->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
             </div>
