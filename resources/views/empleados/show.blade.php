@@ -29,7 +29,11 @@
     </div>
 </div>
 
+{{-- SOLO ADMIN PUEDE SUBIR ARCHIVOS --}}
+@if(auth()->user()->role == 'admin')
+
 <div class="card shadow mb-4">
+
     <div class="card-header">
         Subir Archivo
     </div>
@@ -43,15 +47,19 @@
             @csrf
 
             <div class="mb-3">
+
                 <input type="file"
                        name="archivo"
                        class="form-control">
+
             </div>
 
             @error('archivo')
+
                 <small class="text-danger">
                     {{ $message }}
                 </small>
+
             @enderror
 
             <button class="btn btn-primary">
@@ -61,9 +69,13 @@
         </form>
 
     </div>
+
 </div>
 
+@endif
+
 <div class="card shadow">
+
     <div class="card-header">
         Archivos del empleado
     </div>
@@ -76,18 +88,47 @@
 
                 @foreach($empleado->archivos as $archivo)
 
-                    <li class="list-group-item d-flex justify-content-between">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
 
+                    <span>
                         {{ $archivo->nombre_archivo }}
+                    </span>
 
+                    <div>
+
+                        {{-- TODOS PUEDEN VER --}}
                         <a href="{{ asset('storage/' . $archivo->ruta_archivo) }}"
                            target="_blank"
                            class="btn btn-sm btn-success">
 
                             Ver Archivo
+
                         </a>
 
-                    </li>
+                        {{-- SOLO ADMIN ELIMINA --}}
+                        @if(auth()->user()->role == 'admin')
+
+                        <form action="{{ route('archivos.destroy', $archivo) }}"
+                              method="POST"
+                              style="display:inline;">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button class="btn btn-danger btn-sm"
+                                onclick="return confirm('¿Eliminar archivo?')">
+
+                                Eliminar
+
+                            </button>
+
+                        </form>
+
+                        @endif
+
+                    </div>
+
+                </li>
 
                 @endforeach
 
@@ -100,6 +141,7 @@
         @endif
 
     </div>
+
 </div>
 
 <br>

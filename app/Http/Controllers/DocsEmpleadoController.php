@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DocsEmpleado;
 use App\Models\Empleado;
+use Illuminate\Support\Facades\Storage;
 
 class DocsEmpleadoController extends Controller
 {
@@ -25,5 +26,13 @@ class DocsEmpleadoController extends Controller
         ]);
 
         return back()->with('success', 'Archivo subido correctamente');
+    }
+    public function destroy(DocsEmpleado $archivo)
+    {
+        Storage::disk('public')->delete($archivo->ruta_archivo);
+
+        $archivo->delete();
+
+        return back()->with('success', 'Archivo eliminado correctamente');
     }
 }

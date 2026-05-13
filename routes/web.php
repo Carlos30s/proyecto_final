@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('/empleados/{empleado}/archivos', [DocsEmpleadoController::class, 'store'])
         ->name('archivos.store');
+    Route::delete('/archivos/{archivo}', [DocsEmpleadoController::class, 'destroy'])
+        ->name('archivos.destroy');
 });
 
 require __DIR__.'/settings.php';
