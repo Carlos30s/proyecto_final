@@ -23,7 +23,12 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
+        if(auth()->user()->role != 'admin'){
+            abort(403);
+        }
+
         $departamentos = Departamento::all();
+
         return view('empleados.create', compact('departamentos'));
     }
 
@@ -32,6 +37,9 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
 {
+    if(auth()->user()->role != 'admin'){
+        abort(403);
+    }
     $request->validate([
             'numero_empleado' => [
                 'required',
@@ -77,14 +85,20 @@ class EmpleadoController extends Controller
      */
     public function edit(Empleado $empleado)
     {
+        if(auth()->user()->role != 'admin'){
+            abort(403);
+        }
+
         return view('empleados.edit', compact('empleado'));
     }
-
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Empleado $empleado)
     {
+        if(auth()->user()->role != 'admin'){
+        abort(403);
+        }
         $request->validate([
             'numero_empleado' => [
                 'required',
@@ -119,6 +133,10 @@ class EmpleadoController extends Controller
      */
     public function destroy(Empleado $empleado)
     {
+        if(auth()->user()->role != 'admin'){
+            abort(403);
+        }
+
         $empleado->delete();
 
         return redirect()->route('empleados.index')

@@ -20,6 +20,12 @@
                 <span>Empleados</span>
             </a>
         </li>
+        <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="btn btn-danger">
+        Logout
+        </button>
+</form>
     </ul>
 
     <div id="content-wrapper" class="d-flex flex-column">

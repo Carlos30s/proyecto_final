@@ -4,9 +4,13 @@
 
 <h1 class="h3 mb-4 text-gray-800">Empleados</h1>
 
+@if(auth()->user()->role == 'admin')
+
 <a href="{{ route('empleados.create') }}" class="btn btn-primary mb-3">
     Nuevo empleado
 </a>
+
+@endif
 
 @if(session('success'))
     <div class="alert alert-success">
@@ -49,15 +53,36 @@
                 <td>${{ $empleado->salario }}</td>
 
                 <td>
-                    <a href="{{ route('empleados.show', $empleado) }}" class="btn btn-info btn-sm">Ver</a>
-                    <a href="{{ route('empleados.edit', $empleado) }}" class="btn btn-warning btn-sm">Editar</a>
 
-                    <form action="{{ route('empleados.destroy', $empleado) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que quieres eliminar este empleado?')">Eliminar</button>
-                    </form>
-                </td>
+    <a href="{{ route('empleados.show', $empleado) }}"
+       class="btn btn-info btn-sm">
+       Ver
+    </a>
+
+    @if(auth()->user()->role == 'admin')
+
+        <a href="{{ route('empleados.edit', $empleado) }}"
+           class="btn btn-warning btn-sm">
+           Editar
+        </a>
+
+        <form action="{{ route('empleados.destroy', $empleado) }}"
+              method="POST"
+              style="display:inline;">
+
+            @csrf
+            @method('DELETE')
+
+            <button class="btn btn-danger btn-sm"
+                onclick="return confirm('¿Seguro que quieres eliminar este empleado?')">
+                Eliminar
+            </button>
+
+        </form>
+
+    @endif
+
+</td>
             </tr>
             @endforeach
         </tbody>
