@@ -14,7 +14,7 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        $empleados = Empleado::with('departamento')->get();
+        $empleados = Empleado::with(['departamento', 'proyectos'])->get();
         return view('empleados.index', compact('empleados'));
     }
 
@@ -78,6 +78,7 @@ class EmpleadoController extends Controller
      */
     public function show(Empleado $empleado)
     {
+        $empleado->load('archivos', 'proyectos');
         return view('empleados.show', compact('empleado'));
     }
     /**

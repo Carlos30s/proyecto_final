@@ -25,7 +25,25 @@
         <p><strong>Teléfono:</strong> {{ $empleado->telefono }}</p>
 
         <p><strong>Salario:</strong> ${{ $empleado->salario }}</p>
+        <p><strong>Proyectos:</strong></p>
 
+    <ul>
+
+    <p><strong>Proyectos:</strong></p>
+
+    @if($empleado->proyectos->count())
+        <ul>
+            @foreach($empleado->proyectos as $proyecto)
+                <li>
+                    {{ $proyecto->nombre }}
+                </li>
+            @endforeach
+        </ul>
+    @else
+        <p>No tiene proyectos asignados.</p>
+    @endif
+
+    </ul>
     </div>
 </div>
 

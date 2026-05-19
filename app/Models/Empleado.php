@@ -30,4 +30,8 @@ class Empleado extends Model
     {
         return $this->hasMany(DocsEmpleado::class);
     }
+    public function proyectos()
+    {
+        return $this->belongsToMany(Proyecto::class);
+    }
 }
