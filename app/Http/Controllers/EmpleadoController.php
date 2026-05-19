@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Empleado;
 use App\Models\Departamento;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EmpleadoCreadoMail;
 
 class EmpleadoController extends Controller
 {
@@ -68,7 +70,9 @@ class EmpleadoController extends Controller
             'curp.unique' => 'La CURP ya está registrada.',
         ]);
 
-        Empleado::create($request->all());
+        $empleado = Empleado::create($request->all());
+        Mail::to($empleado->email)
+            ->send(new EmpleadoCreadoMail($empleado));
 
         return redirect()->route('empleados.index')
             ->with('success', 'Empleado creado correctamente');
