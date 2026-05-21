@@ -1,18 +1,69 @@
-<x-layouts::app :title="__('Dashboard')">
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
-        <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
+@extends('layouts.app')
+
+@section('content')
+
+<h1 class="h3 mb-4 text-gray-800">
+    Dashboard
+</h1>
+
+<div class="row">
+
+    <div class="col-md-3 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+
+            <div class="card-body">
+
+                <h5>Total Empleados</h5>
+
+                <h2>{{ $totalEmpleados }}</h2>
+
             </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-        </div>
-        <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
+
         </div>
     </div>
-</x-layouts::app>
+
+    <div class="col-md-3 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+
+            <div class="card-body">
+
+                <h5>Departamentos</h5>
+
+                <h2>{{ $totalDepartamentos }}</h2>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+
+            <div class="card-body">
+
+                <h5>Proyectos</h5>
+
+                <h2>{{ $totalProyectos }}</h2>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+
+            <div class="card-body">
+
+                <h5>Empleados Eliminados</h5>
+
+                <h2>{{ $empleadosEliminados }}</h2>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@endsection

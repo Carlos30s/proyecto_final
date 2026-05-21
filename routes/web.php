@@ -3,13 +3,15 @@
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\DocsEmpleadoController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
     Route::view('/', 'welcome')->name('home');
 
     Route::middleware(['auth', 'verified'])->group(function () {
-
-    Route::view('dashboard', 'dashboard')->name('dashboard');
-
+    
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');
+    
     Route::resource('empleados', EmpleadoController::class);
 
     Route::post('/empleados/{empleado}/archivos', [DocsEmpleadoController::class, 'store'])

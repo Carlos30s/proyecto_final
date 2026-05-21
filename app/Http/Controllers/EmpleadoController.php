@@ -14,11 +14,25 @@ class EmpleadoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $empleados = Empleado::with(['departamento', 'proyectos'])->get();
-        return view('empleados.index', compact('empleados'));
-    }
+    public function index(Request $request)
+{
+    $buscar = $request->buscar;
+
+    $empleados = Empleado::with(['departamento', 'proyectos'])
+
+        ->when($buscar, function ($query, $buscar) {
+
+            $query->where('nombre', 'like', "%{$buscar}%")
+                  ->orWhere('apellido', 'like', "%{$buscar}%")
+                  ->orWhere('email', 'like', "%{$buscar}%")
+                  ->orWhere('numero_empleado', 'like', "%{$buscar}%");
+
+        })
+
+        ->paginate(5);
+
+    return view('empleados.index', compact('empleados'));
+}
 
     /**
      * Show the form for creating a new resource.
